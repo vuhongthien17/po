@@ -118,16 +118,19 @@ public class AwardServiceImpl implements AwardService {
                 PetUser petUser = new PetUser();
                 petUser.setIdPet(pet.getId());
                 petUser.setCreateAt(LocalDateTime.now());
-                petUser.setLever(1);
+                petUser.setLever(pet.getLever());
                 petUser.setCreateBy(userPlayer.getUser());
                 petUser.setIdUser(countPass.getIdUser());
-
+                petUser.setAttack(pet.getAttack());
+                petUser.setBlood(pet.getBlood());
+                petUser.setMana(pet.getMana());
+                petUser.setDameTypePet(petUser.getDameTypePet());
                 // lấy quà là pet
                 awards.stream()
                         .filter(a -> a.getIdPet() != null && a.getIdPet() != 0L)
                         .findFirst().ifPresent(item -> petUser.setIdAward(item.getId()));
                 PetUserDto petUserUpdate = mapper.map(petUserRepository.save(petUser), PetUserDto.class);
-
+                petUserUpdate.setNamePet(pet.getName());
                 //set ảnh
                 List<ImageDto> imageDto = imageRepository.findByIdPet(pet.getId())
                         .stream()

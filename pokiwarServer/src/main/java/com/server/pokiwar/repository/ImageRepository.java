@@ -20,4 +20,14 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
             "FROM tbl_image " +
             "WHERE id_pet =:idPet", nativeQuery = true)
     List<Image> findByIdPet(Long idPet);
+
+    @Query(value = "SELECT * " +
+            "FROM tbl_image " +
+            "WHERE id_card =:idCard", nativeQuery = true)
+    List<Image> findByIdCard(Long idCard);
+
+    @Query(value = "SELECT * " +
+            "FROM tbl_image " +
+            "WHERE id_use =:idUser", nativeQuery = true)
+    List<Image> findByIdUser(Long idUser);
 }

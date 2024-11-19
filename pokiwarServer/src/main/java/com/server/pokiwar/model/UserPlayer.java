@@ -27,7 +27,7 @@ public class UserPlayer {
     private String user;
 
     @Column(name = "energy")
-    private int energy;
+    private int energy = 0;
 
     @Column(name = "lever")
     private int lever;
@@ -37,4 +37,16 @@ public class UserPlayer {
 
     @Column(name = "id_pet_user")
     private Long idPetUser;
+
+    @Column(name = "attack")
+    private int attack = 0;
+
+    @Column(name = "mana")
+    private int mana = 0;
+
+    @Column(name = "blood")
+    private int blood = 0;
+
+    @Column(name = "dame_type_pet_use")
+    private int dameTypePetUser = 0;
 }

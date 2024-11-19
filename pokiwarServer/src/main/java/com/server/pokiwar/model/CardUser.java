@@ -28,10 +28,14 @@ public class CardUser {
     @Column(name = "lever")
     private int lever;
 
+    @Column(name = "count")
+    private int count;
+
     @Column(name = "create_at")
     private LocalDateTime createAt;
 
     @Column(name = "create_by")
     private String createBy;
+
 
 }

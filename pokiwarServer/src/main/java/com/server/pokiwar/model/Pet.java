@@ -30,7 +30,10 @@ public class Pet {
     private String description;
 
     @Column(name = "dame_type_pet")
-    private String dameTypePet;
+    private int dameTypePet;
+
+    @Column(name = "max_dame_type_pet")
+    private int maxDameTypePet;
 
     @Column(name = "name")
     private String name;
@@ -58,5 +61,17 @@ public class Pet {
 
     @Column(name = "active")
     private String active;
+
+    @Column(name = "maxLever")
+    private int maxLever;
+
+    @Column(name = "max_attack")
+    private int maxAttack;
+
+    @Column(name = "max_mana")
+    private int maxMana;
+
+    @Column(name = "max_blood")
+    private int maxBlood;
 
 }

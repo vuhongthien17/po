@@ -17,6 +17,8 @@ public class PetUserDto {
 
     private Long idPet;
 
+    private String namePet;
+
     private int attack;
 
     private int mana;

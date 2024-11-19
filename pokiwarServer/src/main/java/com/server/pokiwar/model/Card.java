@@ -19,4 +19,25 @@ public class Card {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "power")
+    private int power;
+
+    @Column(name = "mana")
+    private int mana;
+
+    @Column(name = "blood")
+    private int blood;
+
+    @Column(name = "attack")
+    private int attack;
+
+    @Column(name = "maxLever")
+    private int maxLever;
+
+    @Column(name = "lever")
+    private int lever;
 }

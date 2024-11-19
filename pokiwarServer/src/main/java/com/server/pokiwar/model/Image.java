@@ -31,4 +31,7 @@ public class Image {
 
     @Column(name = "id_card")
     private Long idCard;
+
+    @Column(name = "id_user")
+    private Long idUser;
 }
