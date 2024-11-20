@@ -29,6 +29,8 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     ImageRepository imageRepository;
     @Autowired
+    EnemyPetRepository enemyPetRepository;
+    @Autowired
     ModelMapper mapper;
 
     @Override
@@ -36,7 +38,10 @@ public class MatchServiceImpl implements MatchService {
         try {
             UserPlayer userPlayer = userRepository.findById(request.getIdUser()).orElse(null);
             PetUser petUser = petUserRepository.findById(request.getIdPetUser()).orElse(null);
-
+            EnemyPet enemyPet = enemyPetRepository.findById(request.getIdEnemyPet()).orElse(null);
+            if (enemyPet == null) {
+                return new MessageResponse<>(LocalDateTime.now(), 500, false, "Pet trên đảo đang buôồn ngủ từ chối đấu.");
+            }
             if (userPlayer == null) {
                 return new MessageResponse<>(LocalDateTime.now(), 500, false, "không tìm thấy user.");
             }
@@ -84,6 +89,7 @@ public class MatchServiceImpl implements MatchService {
                     .map(entity -> mapper.map(entity, ImageDto.class))
                     .toList();
             userPlayerDto.setImageUser(imageUser);
+            userPlayerDto.setEnemyPet(enemyPet);
             return new MessageResponse<>(LocalDateTime.now(), 200, true, "Bắt đầu", userPlayerDto);
 
         } catch (Exception e) {

@@ -9,6 +9,8 @@ public class RequestMatch {
 
     private Long idUser;
 
+    private Long idEnemyPet;
+
     private Long idPetUser;
 
     private List<Long> listCardUserId;

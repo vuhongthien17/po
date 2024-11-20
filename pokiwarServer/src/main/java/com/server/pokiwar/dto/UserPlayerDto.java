@@ -1,5 +1,6 @@
 package com.server.pokiwar.dto;
 
+import com.server.pokiwar.model.EnemyPet;
 import jakarta.persistence.Column;
 import lombok.Data;
 
@@ -22,6 +23,8 @@ public class UserPlayerDto {
     private List<ImageDto> imagePet;
     private List<ImageDto> imageUser;
     private List<CardUserDto> listCard;
+    private List<ImageDto> imageEnemyPet;
+    private EnemyPet enemyPet;
 
 
 }
