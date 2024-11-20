@@ -88,8 +88,16 @@ public class MatchServiceImpl implements MatchService {
                     .stream()
                     .map(entity -> mapper.map(entity, ImageDto.class))
                     .toList();
+
+            //lấy aảnh pet enemy
+            List<ImageDto> imageEnemyPet = imageRepository.findByIdPet(enemyPet.getIdPet())
+                    .stream()
+                    .map(entity -> mapper.map(entity, ImageDto.class))
+                    .toList();
+            userPlayerDto.setImagePet(imagePet);
             userPlayerDto.setImageUser(imageUser);
             userPlayerDto.setEnemyPet(enemyPet);
+            userPlayerDto.setImageEnemyPet(imageEnemyPet);
             return new MessageResponse<>(LocalDateTime.now(), 200, true, "Bắt đầu", userPlayerDto);
 
         } catch (Exception e) {
