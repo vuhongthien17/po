@@ -49,8 +49,14 @@ public class MatchServiceImpl implements MatchService {
                 return new MessageResponse<>(LocalDateTime.now(), 500, false, "hãy chọn lại pet.");
             }
             Pet pet = petRepository.findById(petUser.getIdPet()).orElse(null);
+            //pet enemy
+            Pet petEnemy = petRepository.findById(enemyPet.getIdPet()).orElse(null);
+
             if (pet == null) {
                 return new MessageResponse<>(LocalDateTime.now(), 500, false, "Pet này không có trong hệ thống");
+            }
+            if (petEnemy == null) {
+                return new MessageResponse<>(LocalDateTime.now(), 500, false, "Pet này bỏ đảo đi làm người rồi");
             }
 
             List<Long> idCard = request.getListCardUserId();
@@ -94,6 +100,20 @@ public class MatchServiceImpl implements MatchService {
                     .stream()
                     .map(entity -> mapper.map(entity, ImageDto.class))
                     .toList();
+            //lấy aảnh hệ enemy
+            List<ImageDto> imageTypeEnemyPet = imageRepository.findByIdTypePet(petEnemy.getIdTypePet())
+                    .stream()
+                    .map(entity -> mapper.map(entity, ImageDto.class))
+                    .toList();
+            //lấy aảnh hệ pet use
+            List<ImageDto> imageTypePet = imageRepository.findByIdTypePet(pet.getIdTypePet())
+                    .stream()
+                    .map(entity -> mapper.map(entity, ImageDto.class))
+                    .toList();
+            userPlayerDto.setDameTypePet(String.valueOf(userPlayer.getDameTypePetUser()));
+            userPlayerDto.setNamePetEnemy(petEnemy.getName());
+            userPlayerDto.setImageTypeEnemyPet(imageTypeEnemyPet);
+            userPlayerDto.setImageTypePet(imageTypePet);
             userPlayerDto.setImagePet(imagePet);
             userPlayerDto.setImageUser(imageUser);
             userPlayerDto.setEnemyPet(enemyPet);

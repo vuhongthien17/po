@@ -20,6 +20,10 @@ public class UserPlayerDto {
     private int blood;
     private Long idPetUser;
     private String namePet;
+    private String namePetEnemy;
+    private String dameTypePet;
+    private List<ImageDto> imageTypePet;
+    private List<ImageDto> imageTypeEnemyPet;
     private List<ImageDto> imagePet;
     private List<ImageDto> imageUser;
     private List<CardUserDto> listCard;
