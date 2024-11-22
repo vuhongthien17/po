@@ -23,17 +23,8 @@ public class Card {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "power")
-    private int power;
-
-    @Column(name = "mana")
-    private int mana;
-
-    @Column(name = "blood")
-    private int blood;
-
-    @Column(name = "attack")
-    private int attack;
+    @Column(name = "value")
+    private int value;
 
     @Column(name = "maxLever")
     private int maxLever;

@@ -14,13 +14,7 @@ public class CardDto {
 
     private String description;
 
-    private int power;
-
-    private int mana;
-
-    private int blood;
-
-    private int attack;
+    private int value;
 
     private int maxLever;
 
