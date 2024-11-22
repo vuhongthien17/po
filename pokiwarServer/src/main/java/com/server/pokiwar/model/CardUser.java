@@ -28,6 +28,9 @@ public class CardUser {
     @Column(name = "lever")
     private int lever;
 
+    @Column(name = "value")
+    private int value;
+
     @Column(name = "count")
     private int count;
 

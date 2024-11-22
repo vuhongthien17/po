@@ -20,6 +20,7 @@ public class CardUserDto {
     private int lever;
 
     private int count;
+    private int value;
 
     private LocalDateTime createAt;
 
