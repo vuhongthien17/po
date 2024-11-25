@@ -4,7 +4,6 @@ import com.server.pokiwar.exception.MessageResponse;
 import com.server.pokiwar.model.UserPlayer;
 import com.server.pokiwar.repository.UserRepository;
 import com.server.pokiwar.service.UserService;
-import com.server.pokiwar.utils.AESUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
             }
             userPlayer.setCode(UUID.randomUUID().toString());
             userRepository.save(userPlayer);
-            return new MessageResponse<>(LocalDateTime.now(), 200, true, "đã gen key", AESUtil.encrypt(userPlayer.getCode()));
+            return new MessageResponse<>(LocalDateTime.now(), 200, true, "đã gen key", userPlayer.getCode());
         } catch (Exception e) {
             return new MessageResponse<>(LocalDateTime.now(), 500, false, "Lỗi hệ thống: " + e.getMessage());
         }
