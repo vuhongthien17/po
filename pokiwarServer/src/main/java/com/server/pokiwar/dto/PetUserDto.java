@@ -19,6 +19,8 @@ public class PetUserDto {
 
     private String namePet;
 
+    private String thumbnailPet;
+
     private int attack;
 
     private int mana;

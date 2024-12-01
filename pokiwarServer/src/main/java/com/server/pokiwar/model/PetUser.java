@@ -57,4 +57,7 @@ public class PetUser {
 
     @Column(name = "check_new")
     private boolean checkNew;
+
+    @Column(name = "thumbnail_pet")
+    private String thumbnailPet;
 }

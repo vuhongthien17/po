@@ -31,4 +31,6 @@ public class Card {
 
     @Column(name = "lever")
     private int lever;
+
+
 }

@@ -29,7 +29,7 @@ public interface ImageRepository extends JpaRepository<Image,Long> {
 
     @Query(value = "SELECT * " +
             "FROM tbl_image " +
-            "WHERE id_use =:idUser", nativeQuery = true)
+            "WHERE id_user =:idUser", nativeQuery = true)
     List<Image> findByIdUser(Long idUser);
 
     @Query(value = "SELECT * " +

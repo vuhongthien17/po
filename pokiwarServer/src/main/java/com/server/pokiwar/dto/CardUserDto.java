@@ -20,11 +20,14 @@ public class CardUserDto {
     private int lever;
 
     private int count;
+
     private int value;
 
     private LocalDateTime createAt;
 
     private String name;
+
+    private String thumbnail;
 
     private List<ImageDto> imageCard;
 }

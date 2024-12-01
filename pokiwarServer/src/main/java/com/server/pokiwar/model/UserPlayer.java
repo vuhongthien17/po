@@ -29,6 +29,9 @@ public class UserPlayer {
     @Column(name = "energy")
     private int energy = 0;
 
+    @Column(name = "energy_full")
+    private int energyFull;
+
     @Column(name = "lever")
     private int lever;
 
@@ -47,6 +50,16 @@ public class UserPlayer {
     @Column(name = "blood")
     private int blood = 0;
 
+    @Column(name = "gold")
+    private int gold = 10000;
+
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
+    @Column(name = "money")
+    private int money = 10000;
+
     @Column(name = "dame_type_pet_use")
     private int dameTypePetUser = 0;
+
 }

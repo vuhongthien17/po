@@ -40,5 +40,8 @@ public class CardUser {
     @Column(name = "create_by")
     private String createBy;
 
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
 
 }

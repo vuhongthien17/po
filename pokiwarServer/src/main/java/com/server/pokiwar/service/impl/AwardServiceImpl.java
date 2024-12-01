@@ -131,12 +131,14 @@ public class AwardServiceImpl implements AwardService {
                         .findFirst().ifPresent(item -> petUser.setIdAward(item.getId()));
                 PetUserDto petUserUpdate = mapper.map(petUserRepository.save(petUser), PetUserDto.class);
                 petUserUpdate.setNamePet(pet.getName());
+                petUserUpdate.setThumbnailPet(pet.getThumbnail());
                 //set ảnh
                 List<ImageDto> imageDto = imageRepository.findByIdPet(pet.getId())
                         .stream()
                         .map(entity -> mapper.map(entity, ImageDto.class))
                         .toList();
                 petUserUpdate.setImage(imageDto);
+                petUserUpdate.setThumbnailPet(pet.getThumbnail());
                 return new MessageResponse<>(LocalDateTime.now(), 200, true, "Nhận Pet", petUserUpdate);
             }
         } catch (Exception e) {

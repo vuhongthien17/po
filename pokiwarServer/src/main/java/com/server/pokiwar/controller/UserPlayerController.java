@@ -15,7 +15,6 @@ import java.util.Map;
 @RequestMapping("api/v1/userPlayer")
 public class UserPlayerController {
 
-    @Autowired
     UserService userService;
 
     @PostMapping("/updateEnergy")

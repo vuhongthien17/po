@@ -42,4 +42,7 @@ public class EnemyPet {
 
     @Column(name = "dame_type_pet")
     private String dameTypePet;
+
+    @Column(name = "request_pass")
+    private int requestPass;
 }

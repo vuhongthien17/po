@@ -1,34 +1,29 @@
 package com.server.pokiwar.dto;
 
 import com.server.pokiwar.model.EnemyPet;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class UserPlayerDto {
+public class UserPlayerRoomDto {
 
     private Long id;
     private String name;
-    private String password;
     private String user;
     private int gold;
     private int money;
     private int energy;
+    private int energyFull;
     private int lever;
-    private int attack;
-    private int mana;
-    private int blood;
+    private int countPass;
     private Long idPetUser;
-    private String namePet;
-    private String namePetEnemy;
-    private String dameTypePet;
-    private List<ImageDto> imageTypePet;
-    private List<ImageDto> imageTypeEnemyPet;
-    private List<ImageDto> imagePet;
+    private String thumbnailPetUser;
+    private List<PetUserDto> ListChoosePet;
     private List<ImageDto> imageUser;
-    private List<CardUserDto> listCard;
+    private List<CardUserDto> ListChooseCard;
+    //enemy
+    private String namePetEnemy;
     private List<ImageDto> imageEnemyPet;
     private EnemyPet enemyPet;
 

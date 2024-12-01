@@ -14,4 +14,5 @@ public interface CountPassRepository extends JpaRepository<CountPass ,Long> {
             "FROM tbl_count_pass " +
             "WHERE id_pet =:idEnemyPet AND id_user =:idUser", nativeQuery = true)
     Optional<CountPass> countPassBy(Long idEnemyPet, Long idUser);
+
 }

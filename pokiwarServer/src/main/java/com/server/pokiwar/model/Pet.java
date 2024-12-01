@@ -74,4 +74,7 @@ public class Pet {
     @Column(name = "max_blood")
     private int maxBlood;
 
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
 }
