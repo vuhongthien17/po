@@ -6,6 +6,7 @@ import com.server.pokiwar.model.CountPass;
 import com.server.pokiwar.model.EnemyPet;
 import com.server.pokiwar.model.Pet;
 import com.server.pokiwar.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class RoomWaitService {
@@ -37,56 +39,81 @@ public class RoomWaitService {
     ModelMapper mapper;
 
     public MessageResponse<?> join(RequestJoinRoom request) {
-        // thông tin người chơi
-        UserPlayerRoomDto userPlayerDto = mapper.map( userRepository.findById(request.getIdUser()).orElse(null), UserPlayerRoomDto.class);
-        PetUserDto petUserDto = mapper.map(petUserRepository.findById(userPlayerDto.getIdPetUser()).orElse(null), PetUserDto.class);
-        List<ImageDto> userImg = imageRepository.findByIdPet(request.getIdUser())
-                .stream()
-                .map(entity -> mapper.map(entity, ImageDto.class))
-                .toList();
-        petRepository.findById(petUserDto.getIdPet()).ifPresent(petUser -> petUserDto.setThumbnailPet(petUser.getThumbnail()));
-        userPlayerDto.setThumbnailPetUser(petUserDto.getThumbnailPet());
+        // Fetch basic player info and pet in a single query if possible
+        UserPlayerRoomDto userPlayerDto = mapper.map(
+                userRepository.findById(request.getIdUser())
+                        .orElseThrow(() -> new EntityNotFoundException("User not found")),
+                UserPlayerRoomDto.class
+        );
+
+        PetUserDto petUserDto = mapper.map(
+                petUserRepository.findById(userPlayerDto.getIdPetUser())
+                        .orElseThrow(() -> new EntityNotFoundException("Pet user not found")),
+                PetUserDto.class
+        );
+
+        // Preload images for user and pet
+        CompletableFuture<List<ImageDto>> userImagesFuture = CompletableFuture.supplyAsync(() ->
+                imageRepository.findByIdPet(request.getIdUser())
+                        .stream()
+                        .map(entity -> mapper.map(entity, ImageDto.class))
+                        .toList()
+        );
+
+        // Fetch enemy pet details
+        CompletableFuture<EnemyPet> enemyPetFuture = CompletableFuture.supplyAsync(() ->
+                enemyPetRepository.findById(request.getIdEnemyPet()).orElse(null)
+        );
+
+        // Fetch count pass
+        CompletableFuture<Integer> countPassFuture = CompletableFuture.supplyAsync(() ->
+                countPassRepository.countPassBy(request.getIdEnemyPet(), request.getIdUser())
+                        .map(CountPass::getCount)
+                        .orElse(0)
+        );
+
+        // Resolve futures
+        List<ImageDto> userImg = userImagesFuture.join();
+        EnemyPet enemyPet = enemyPetFuture.join();
+        int countPass = countPassFuture.join();
+
+        // Set user data
         userPlayerDto.setImageUser(userImg);
+        userPlayerDto.setCountPass(countPass);
 
-        // số lần thắng
-        CountPass countPass = countPassRepository.countPassBy(request.getIdEnemyPet(),request.getIdUser()).orElse(null);
-        if(countPass ==null){
-            userPlayerDto.setCountPass(0);
-        }else{
-            userPlayerDto.setCountPass(countPass.getCount());
-
-        }
-
-        // thông tin pet địch
-        EnemyPet enemyPet = enemyPetRepository.findById(request.getIdEnemyPet()).orElse(null);
-        if(enemyPet!=null){
+        if (enemyPet != null) {
             Pet petEnemy = petRepository.findById(enemyPet.getIdPet()).orElse(null);
-            userPlayerDto.setEnemyPet(enemyPet);
-            if(petEnemy!=null){
+            if (petEnemy != null) {
                 List<ImageDto> enemyPetImg = imageRepository.findByIdPet(enemyPet.getIdPet())
                         .stream()
                         .map(entity -> mapper.map(entity, ImageDto.class))
                         .toList();
                 userPlayerDto.setImageEnemyPet(enemyPetImg);
                 userPlayerDto.setNamePetEnemy(petEnemy.getName());
-
             }
+            userPlayerDto.setEnemyPet(enemyPet);
         }
 
+        // Fetch cards and pets in parallel
+        CompletableFuture<List<CardUserDto>> cardsFuture = CompletableFuture.supplyAsync(() ->
+                cardUserRepository.listCardUser(request.getIdUser())
+                        .stream()
+                        .map(entity -> mapper.map(entity, CardUserDto.class))
+                        .toList()
+        );
 
+        CompletableFuture<List<PetUserDto>> petsFuture = CompletableFuture.supplyAsync(() ->
+                petUserRepository.listPetUser(request.getIdUser())
+                        .stream()
+                        .map(entity -> mapper.map(entity, PetUserDto.class))
+                        .toList()
+        );
 
-        // ds chọn thẻ
-
-        List<CardUserDto> cardUserDtos = cardUserRepository.listCardUser(request.getIdUser()).stream()
-                .map(entity -> mapper.map(entity, CardUserDto.class)).toList();
-        userPlayerDto.setListChooseCard(cardUserDtos);
-
-        // ds chọn pet
-        List<PetUserDto> petUserDtos = petUserRepository.listPetUser(request.getIdUser()).stream()
-                .map(entity -> mapper.map(entity, PetUserDto.class)).toList();
-        userPlayerDto.setListChoosePet(petUserDtos);
+        // Set additional data
+        userPlayerDto.setListChooseCard(cardsFuture.join());
+        userPlayerDto.setListChoosePet(petsFuture.join());
 
         return new MessageResponse<>(LocalDateTime.now(), 200, true, "Join room", userPlayerDto);
-
     }
+
 }
