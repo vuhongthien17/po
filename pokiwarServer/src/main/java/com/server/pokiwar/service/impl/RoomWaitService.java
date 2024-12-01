@@ -73,13 +73,11 @@ public class RoomWaitService {
         );
 
         // Resolve futures
-        List<ImageDto> userImg = userImagesFuture.join();
         EnemyPet enemyPet = enemyPetFuture.join();
         int countPass = countPassFuture.join();
 
         // Set user data
         userPlayerDto.setThumbnailPetUser(petUserDto.getThumbnailPet());
-        userPlayerDto.setImageUser(userImg);
         userPlayerDto.setCountPass(countPass);
 
         if (enemyPet != null) {
