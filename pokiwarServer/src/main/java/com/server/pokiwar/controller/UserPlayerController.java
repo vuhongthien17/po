@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/userPlayer")
 public class UserPlayerController {
-
+    @Autowired
     UserService userService;
 
     @PostMapping("/updateEnergy")
