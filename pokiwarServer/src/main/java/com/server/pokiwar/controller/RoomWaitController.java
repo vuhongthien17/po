@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,4 +24,10 @@ public class RoomWaitController {
         MessageResponse<?> messageResponse = roomWaitService.join(request);
         return new ResponseEntity<>(messageResponse, HttpStatus.OK);
     }
+
+    @GetMapping("/pet")
+    public void pet(@RequestParam() Long userId,@RequestParam() Long petId ) {
+        roomWaitService.pet(userId,petId);
+    }
+
 }

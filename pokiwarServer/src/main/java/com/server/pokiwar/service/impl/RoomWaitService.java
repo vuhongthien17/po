@@ -5,6 +5,7 @@ import com.server.pokiwar.exception.MessageResponse;
 import com.server.pokiwar.model.CountPass;
 import com.server.pokiwar.model.EnemyPet;
 import com.server.pokiwar.model.Pet;
+import com.server.pokiwar.model.UserPlayer;
 import com.server.pokiwar.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -115,4 +116,12 @@ public class RoomWaitService {
         return new MessageResponse<>(LocalDateTime.now(), 200, true, "Join room", userPlayerDto);
     }
 
+    public void pet(Long userId, Long petUserId) {
+        UserPlayer userPlayer = userRepository.findById(userId).orElse(null);
+        if (userPlayer != null) {
+            userPlayer.setIdPetUser(petUserId);
+            userRepository.save(userPlayer);
+        }
+
+    }
 }
