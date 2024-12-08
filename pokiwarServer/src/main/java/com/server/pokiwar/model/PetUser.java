@@ -56,7 +56,7 @@ public class PetUser {
     private String UpdateBy;
 
     @Column(name = "check_new")
-    private boolean checkNew;
+     private boolean checkNew;
 
     @Column(name = "thumbnail_pet")
     private String thumbnailPet;
