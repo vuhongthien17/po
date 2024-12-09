@@ -22,4 +22,7 @@ public class GroupPet {
 
     @Column(name = "step_no")
     private int stepNo;
+
+    @Column(name = "thumbnail")
+    private String thumbnail;
 }
