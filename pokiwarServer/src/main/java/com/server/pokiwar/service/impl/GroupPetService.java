@@ -48,6 +48,7 @@ public class GroupPetService {
             assert pet != null;
             i.setRequestPass(pet.getConditionPass());
             i.setThumbnail(pet.getThumbnail());
+            i.setNamePet(pet.getName());
             //get count pass
             CompletableFuture<Integer> countPassFuture = CompletableFuture.supplyAsync(() ->
                     {

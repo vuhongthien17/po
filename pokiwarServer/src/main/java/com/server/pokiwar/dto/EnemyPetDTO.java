@@ -12,6 +12,8 @@ public class EnemyPetDTO {
 
     private Long idPet;
 
+    private String namePet;
+
     private Long idGroupPet;
 
     private int lever;
