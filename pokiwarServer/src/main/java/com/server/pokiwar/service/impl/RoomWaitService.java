@@ -127,7 +127,7 @@ public class RoomWaitService {
         // Set additional data
         userPlayerDto.setListChooseCard(cardsFuture.join());
         userPlayerDto.setListChoosePet(petsFuture.join());
-
+        userPlayerDto.setIdPet(petUserDto.getIdPet());
         return new MessageResponse<>(LocalDateTime.now(), 200, true, "Join room", userPlayerDto);
     }
 
