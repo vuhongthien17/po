@@ -118,6 +118,7 @@ public class MatchServiceImpl implements MatchService {
             userPlayerDto.setImageUser(imageUser);
             userPlayerDto.setEnemyPet(enemyPet);
             userPlayerDto.setImageEnemyPet(imageEnemyPet);
+            userPlayerDto.setIdPet(pet.getId());
             return new MessageResponse<>(LocalDateTime.now(), 200, true, "Bắt đầu", userPlayerDto);
 
         } catch (Exception e) {

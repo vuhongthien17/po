@@ -20,7 +20,7 @@ public class UserPlayerDto {
     private int attack;
     private int mana;
     private int blood;
-    private Long idPetUser;
+    private Long idPet;
     private String namePet;
     private String namePetEnemy;
     private String dameTypePet;
