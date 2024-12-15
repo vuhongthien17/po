@@ -76,5 +76,9 @@ public class Pet {
 
     @Column(name = "thumbnail")
     private String thumbnail;
+    private Long lv2;
+    private Long lv3;
+
+
 
 }
