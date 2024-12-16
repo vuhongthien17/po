@@ -19,7 +19,7 @@ public class UserPlayerRoomDto {
     private int countPass;
     private Long idPetUser;
     private Long idPet;
-    private String thumbnail;
+    private Long playerId;
     private String thumbnailPetUser;
     private List<PetUserDto> ListChoosePet;
     private List<ImageDto> imageUser;

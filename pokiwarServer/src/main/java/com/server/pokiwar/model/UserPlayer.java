@@ -53,8 +53,8 @@ public class UserPlayer {
     @Column(name = "gold")
     private int gold = 10000;
 
-    @Column(name = "thumbnail")
-    private String thumbnail;
+    @Column(name = "playerId")
+    private Long playerId;
 
     @Column(name = "money")
     private int money = 10000;
